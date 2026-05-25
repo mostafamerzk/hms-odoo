@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- inherit customer form -->
+        <record id="view_partner_form_hms" model="ir.ui.view">
+            <field name="name">res.partner.form.hms</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <!-- misc group in sales and purchase -->
+                <xpath expr="//group[@name='misc']" position="inside">
+                    <field name="related_patient_id"/>
+                </xpath>
+                <!-- Tax ID mandatory -->
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- inherit customer list -->
+        <record id="view_partner_tree_hms" model="ir.ui.view">
+            <field name="name">res.partner.list.hms</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="website"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -11,6 +11,11 @@ class HmsPatient(models.Model):
     birth_date = fields.Date(string='BOD')
     age = fields.Integer(string='age', compute='_compute_age', store=True)
     address = fields.Text(string='address')
+    # unique email
+    email = fields.Char(string='email', required=True)
+    _sql_constraints = [
+        ('unique_email', 'unique(email)', 'Email must be unique!')
+    ]
     image = fields.Image(string='patient image')
 
     blood_type = fields.Selection(
@@ -91,3 +96,12 @@ class HmsPatient(models.Model):
         for rec in self:
             if rec.pcr and not rec.cr_ratio:
                 raise ValidationError('CR ratio is required when PCR is checked.')
+
+    # email validation
+    @api.constrains('email')
+    def _check_email_valid(self):
+        import re
+        regex = r'^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        for rec in self:
+            if rec.email and not re.match(regex, rec.email):
+                raise ValidationError('Invalid email format!')
