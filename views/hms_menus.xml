@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
         <menuitem id="menu_hms_root" name="HMS" sequence="10"/>
 
         <menuitem id="menu_hms_patients" name="Patients" parent="menu_hms_root" sequence="10"/>
+        <menuitem id="menu_hms_patient_list" name="All Patients"
+                  parent="menu_hms_patients" action="action_hms_patient" sequence="10"/>
 
-        <menuitem id="menu_hms_patient_list" name="All Patients" parent="menu_hms_patients" action="action_hms_patient" sequence="10"/>
+        <menuitem id="menu_hms_departments" name="Departments" parent="menu_hms_root" sequence="20"/>
+        <menuitem id="menu_hms_department_list" name="All Departments"
+                  parent="menu_hms_departments" action="action_hms_department" sequence="10"/>
 
+        <menuitem id="menu_hms_doctors" name="Doctors" parent="menu_hms_root" sequence="30"/>
+        <menuitem id="menu_hms_doctors_list" name="All Doctors"
+                  parent="menu_hms_doctors" action="action_hms_doctors" sequence="10"/>
     </data>
 </odoo>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- list view -->
         <record id="view_hms_patient_list" model="ir.ui.view">
             <field name="name">hms.patient.list</field>
             <field name="model">hms.patient</field>
@@ -11,35 +12,69 @@
                     <field name="blood_type"/>
                     <field name="pcr"/>
                     <field name="birth_date"/>
+                    <field name="department_id"/>
+                    <field name="state"/>
                 </list>
             </field>
         </record>
 
+        <!-- form view -->
         <record id="view_hms_patient_form" model="ir.ui.view">
             <field name="name">hms.patient.form</field>
             <field name="model">hms.patient</field>
             <field name="arch" type="xml">
                 <form string="Patient">
+                    <header>
+                        <!-- state bar -->
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="undetermined,good,fair,serious"/>
+                    </header>
                     <sheet>
-                        <field name="image" widget="image"/>
+                        <field name="image" widget="image" class="oe_avatar"/>
 
                         <group>
-                            <group string="Personal Information">
+                            <group string="personal information">
                                 <field name="first_name"/>
                                 <field name="last_name"/>
                                 <field name="birth_date"/>
+                                <field name="age" readonly="1"/>
                                 <field name="address"/>
                             </group>
-                            <group string="Medical Information">
+                            <group string="medical information">
                                 <field name="blood_type"/>
-                                <field name="cr_ratio"/>
+                                <!-- cr_ratio required when pcr checked -->
+                                <field name="cr_ratio" required="pcr"/>
                                 <field name="pcr"/>
                             </group>
                         </group>
 
+                        <group>
+                            <group string="department">
+                                <field name="department_id"/>
+                                <!-- capacity read-only from dept -->
+                                <field name="department_capacity" readonly="1"/>
+                            </group>
+                            <group string="doctors">
+                                <!-- readonly until dept selected -->
+                                <field name="doctor_ids"
+                                       widget="many2many_tags"
+                                       readonly="not department_id"/>
+                            </group>
+                        </group>
+
                         <notebook>
-                            <page string="Medical History" name="history_page">
-                                <field name="history" placeholder="Enter patient medical history here…"/>
+                            <page string="Medical History" name="history_page"
+                                  invisible="age &lt; 50">
+                                <field name="history" placeholder="medical history"/>
+                            </page>
+                            <page string="Log History" name="log_page">
+                                <field name="log_ids">
+                                    <list editable="bottom">
+                                        <field name="created_by"/>
+                                        <field name="date"/>
+                                        <field name="description"/>
+                                    </list>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
@@ -47,6 +82,7 @@
             </field>
         </record>
 
+        <!-- action -->
         <record id="action_hms_patient" model="ir.actions.act_window">
             <field name="name">Patients</field>
             <field name="res_model">hms.patient</field>

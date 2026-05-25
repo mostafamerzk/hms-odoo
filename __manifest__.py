@@ -4,6 +4,8 @@
     'description': 'a module to manage hospital',
     'author': 'Merzk',
     'data': [
+        'views/hms_department_views.xml',
+        'views/hms_doctors_views.xml',
         'views/hms_patient_views.xml',
         'views/hms_menus.xml',
     ],
