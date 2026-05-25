@@ -12,7 +12,7 @@ class HmsPatient(models.Model):
     age = fields.Integer(string='age', compute='_compute_age', store=True)
     address = fields.Text(string='address')
     # unique email
-    email = fields.Char(string='email', required=True)
+    email = fields.Char(string='email')
     _sql_constraints = [
         ('unique_email', 'unique(email)', 'Email must be unique!')
     ]

@@ -37,5 +37,15 @@
             <field name="view_mode">list,form</field>
         </record>
 
+        <!-- access: doctors -->
+        <record id="access_hms_doctors_user" model="ir.model.access">
+            <field name="name">hms.doctors.user</field>
+            <field name="model_id" ref="model_hms_doctors"/>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
     </data>
 </odoo>
