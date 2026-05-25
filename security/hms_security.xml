@@ -26,7 +26,7 @@
             <field name="privilege_id" ref="hms_privilege"/>
             <field name="implied_ids" eval="[(4, ref('hms_group_user'))]"/>
             <!-- Manager gets all permissions -->
-            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
 
         <!-- record rules -->
